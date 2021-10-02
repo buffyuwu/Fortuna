@@ -9,11 +9,9 @@ SUBSYSTEM_DEF(air)
 	var/cost_turfs = 0
 	var/cost_groups = 0
 	var/cost_highpressure = 0
-<<<<<<< HEAD
-	var/cost_deferred_airs = 0
-=======
+
 	var/cost_deferred_airs
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 	var/cost_hotspots = 0
 	var/cost_post_process = 0
 	var/cost_superconductivity = 0
@@ -23,15 +21,14 @@ SUBSYSTEM_DEF(air)
 	var/cost_equalize = 0
 	var/thread_wait_ticks = 0
 	var/cur_thread_wait_ticks = 0
-<<<<<<< HEAD
-=======
+
 
 	var/low_pressure_turfs = 0
 	var/high_pressure_turfs = 0
 
 	var/num_group_turfs_processed = 0
 	var/num_equalize_processed = 0
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 
 	var/list/hotspots = list()
 	var/list/networks = list()
@@ -57,41 +54,24 @@ SUBSYSTEM_DEF(air)
 	var/log_explosive_decompression = TRUE // If things get spammy, admemes can turn this off.
 
 	// Max number of turfs equalization will grab.
-<<<<<<< HEAD
-	var/equalize_turf_limit = 25
-	// Max number of turfs to look for a space turf, and max number of turfs that will be decompressed.
-	var/equalize_hard_turf_limit = 2000
-	// Whether equalization should be enabled at all.
-	var/equalize_enabled = TRUE
-=======
+
 	var/equalize_turf_limit = 10
 	// Max number of turfs to look for a space turf, and max number of turfs that will be decompressed.
 	var/equalize_hard_turf_limit = 2000
 	// Whether equalization should be enabled at all.
 	var/equalize_enabled = FALSE
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 	// Whether turf-to-turf heat exchanging should be enabled.
 	var/heat_enabled = FALSE
 	// Max number of times process_turfs will share in a tick.
 	var/share_max_steps = 1
-<<<<<<< HEAD
-	// If process_turfs finds no pressure differentials larger than this, it'll stop for that tick.
-	var/share_pressure_diff_to_stop = 101.325
 
-/datum/controller/subsystem/air/stat_entry(msg)
-	msg += "C:{"
-	msg += "AT:[round(cost_turfs,1)]|"
-	msg += "TH:[round(turf_process_time(),1)],[thread_wait_ticks]|"
-	msg += "EG:[round(cost_groups,1)]|"
-	msg += "EQ:[round(cost_equalize,1)]|"
-	msg += "PO:[round(cost_post_process,1)]|"
-=======
 	// Excited group processing will try to equalize groups with total pressure difference less than this amount.
 	var/excited_group_pressure_goal = 0.25
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 	msg += "HP:[round(cost_highpressure,1)]|"
 	msg += "HS:[round(cost_hotspots,1)]|"
 	msg += "HE:[round(heat_process_time(),1)]|"
@@ -99,14 +79,7 @@ SUBSYSTEM_DEF(air)
 	msg += "PN:[round(cost_pipenets,1)]|"
 	msg += "AM:[round(cost_atmos_machinery,1)]"
 	msg += "} "
-<<<<<<< HEAD
-	msg += "HS:[hotspots.len]|"
-	msg += "PN:[networks.len]|"
-	msg += "HP:[high_pressure_delta.len]|"
-	msg += "DF:[max_deferred_airs]|"
-	msg += "GA:[get_amt_gas_mixes()]|"
-	msg += "MG:[get_max_gas_mixes()]|"
-=======
+
 	msg += "TC:{"
 	msg += "AT:[round(cost_turfs,1)]|"
 	msg += "EG:[round(cost_groups,1)]|"
@@ -124,7 +97,7 @@ SUBSYSTEM_DEF(air)
 	msg += "DF:[max_deferred_airs]|"
 	msg += "GA:[get_amt_gas_mixes()]|"
 	msg += "MG:[get_max_gas_mixes()]"
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 	return ..()
 
 /datum/controller/subsystem/air/Initialize(timeofday)
@@ -136,14 +109,7 @@ SUBSYSTEM_DEF(air)
 	auxtools_update_reactions()
 	return ..()
 
-<<<<<<< HEAD
-/datum/controller/subsystem/air/proc/auxtools_update_ssair()
 
-/datum/controller/subsystem/air/proc/auxtools_update_reactions()
-
-/datum/controller/subsystem/air/proc/thread_running()
-	return FALSE
-=======
 /datum/controller/subsystem/air/proc/extools_update_ssair()
 
 /datum/controller/subsystem/air/proc/auxtools_update_reactions()
@@ -167,7 +133,7 @@ SUBSYSTEM_DEF(air)
 	set desc="Fixes air that has weird NaNs (-1.#IND and such). Hopefully."
 	set name="Fix Infinite Air"
 	fix_corrupted_atmos()
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
@@ -213,79 +179,34 @@ SUBSYSTEM_DEF(air)
 			return
 		resumed = 0
 		currentpart = SSAIR_FINALIZE_TURFS
-<<<<<<< HEAD
-	
-=======
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 	// This literally just waits for the turf processing thread to finish, doesn't do anything else.
 	// this is necessary cause the next step after this interacts with the air--we get consistency
 	// issues if we don't wait for it, disappearing gases etc.
 	if(currentpart == SSAIR_FINALIZE_TURFS)
 		finish_turf_processing(resumed)
-<<<<<<< HEAD
+
+
 		if(state != SS_RUNNING)
 			cur_thread_wait_ticks++
 			return
 		resumed = 0
+
 		thread_wait_ticks = MC_AVERAGE(thread_wait_ticks, cur_thread_wait_ticks)
 		cur_thread_wait_ticks = 0
 		currentpart = SSAIR_DEFERRED_AIRS
-
 	if(currentpart == SSAIR_DEFERRED_AIRS)
+
 		timer = TICK_USAGE_REAL
 		process_deferred_airs(resumed)
 		cost_deferred_airs = MC_AVERAGE(cost_deferred_airs, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
-		currentpart = SSAIR_ATMOSMACHINERY_AIR
 
-	if(currentpart == SSAIR_ATMOSMACHINERY_AIR)
-		timer = TICK_USAGE_REAL
-		process_atmos_air_machinery(resumed)
-		cost_atmos_machinery = MC_AVERAGE(cost_atmos_machinery, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-		if(state != SS_RUNNING)
-			return
-		resumed = 0
-		currentpart = equalize_enabled ? SSAIR_EQUALIZE : SSAIR_EXCITEDGROUPS
-
-	// Monstermos and/or Putnamos--making large pressure deltas move faster
-	if(currentpart == SSAIR_EQUALIZE)
-		timer = TICK_USAGE_REAL
-		process_turf_equalize(resumed)
-		cost_equalize = MC_AVERAGE(cost_equalize, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-=======
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
-		if(state != SS_RUNNING)
-			cur_thread_wait_ticks++
-			return
-		resumed = 0
-<<<<<<< HEAD
-		currentpart = SSAIR_EXCITEDGROUPS
-
-	// Making small pressure deltas equalize immediately so they don't process anymore
-	if(currentpart == SSAIR_EXCITEDGROUPS)
-=======
-		thread_wait_ticks = MC_AVERAGE(thread_wait_ticks, cur_thread_wait_ticks)
-		cur_thread_wait_ticks = 0
-		currentpart = SSAIR_DEFERRED_AIRS
-	if(currentpart == SSAIR_DEFERRED_AIRS)
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
-		timer = TICK_USAGE_REAL
-		process_deferred_airs(resumed)
-		cost_deferred_airs = MC_AVERAGE(cost_deferred_airs, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-		if(state != SS_RUNNING)
-			return
-		resumed = 0
-<<<<<<< HEAD
-		currentpart = SSAIR_TURF_POST_PROCESS
-
-	// Quick multithreaded "should we display/react?" checks followed by finishing those up before the next step
-	if(currentpart == SSAIR_TURF_POST_PROCESS)
-=======
 		currentpart = SSAIR_ATMOSMACHINERY_AIR
 	if(currentpart == SSAIR_ATMOSMACHINERY_AIR)
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 		timer = TICK_USAGE_REAL
 		process_atmos_air_machinery(resumed)
 		cost_atmos_machinery = MC_AVERAGE(cost_atmos_machinery, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
@@ -302,32 +223,22 @@ SUBSYSTEM_DEF(air)
 			return
 		resumed = 0
 		currentpart = heat_enabled ? SSAIR_TURF_CONDUCTION : SSAIR_ACTIVETURFS
-<<<<<<< HEAD
 
 	// Heat -- slow and of questionable usefulness. Off by default for this reason. Pretty cool, though.
 	if(currentpart == SSAIR_TURF_CONDUCTION)
 		timer = TICK_USAGE_REAL
-		if(process_turf_heat(MC_TICK_REMAINING_MS))
-=======
-	// Heat -- slow and of questionable usefulness. Off by default for this reason. Pretty cool, though.
-	if(currentpart == SSAIR_TURF_CONDUCTION)
-		timer = TICK_USAGE_REAL
 		if(process_turf_heat(TICK_REMAINING_MS))
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 			pause()
 		cost_superconductivity = MC_AVERAGE(cost_superconductivity, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
 		currentpart = SSAIR_ACTIVETURFS
-<<<<<<< HEAD
 
-	// This simply starts the turf thread. It runs in the background until the FINALIZE_TURFS step, at which point it's waited for.
-=======
-	// This simply starts the turf thread. It runs in the background until the FINALIZE_TURFS step, at which point it's waited for.
 	// This also happens to do all the commented out stuff below, all in a single separate thread. This is mostly so that the
 	// waiting is consistent.
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 	if(currentpart == SSAIR_ACTIVETURFS)
 		timer = TICK_USAGE_REAL
 		process_turfs(resumed)
@@ -335,8 +246,7 @@ SUBSYSTEM_DEF(air)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
-<<<<<<< HEAD
-=======
+
 	/*
 	// Monstermos and/or Putnamos--making large pressure deltas move faster
 	if(currentpart == SSAIR_EQUALIZE)
@@ -366,7 +276,7 @@ SUBSYSTEM_DEF(air)
 		resumed = 0
 		currentpart = SSAIR_HOTSPOTS
 	*/
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 	currentpart = SSAIR_REBUILD_PIPENETS
 
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
@@ -389,17 +299,7 @@ SUBSYSTEM_DEF(air)
 		pipenets_needing_rebuilt += atmos_machine
 
 /datum/controller/subsystem/air/proc/process_deferred_airs(resumed = 0)
-<<<<<<< HEAD
-	while(deferred_airs.len)
-		var/list/cur_op = deferred_airs[deferred_airs.len]
-		deferred_airs.len--
-		var/turf/open/T = cur_op[1]
-		if(istype(cur_op[2],/datum/gas_mixture))
-			T.air.merge(cur_op[2])
-		else if(istype(cur_op[2], /datum/callback))
-			var/datum/callback/cb = cur_op[2]
-			cb.Invoke(T)
-=======
+
 	max_deferred_airs = max(deferred_airs.len,max_deferred_airs)
 	while(deferred_airs.len)
 		var/list/cur_op = deferred_airs[deferred_airs.len]
@@ -421,7 +321,7 @@ SUBSYSTEM_DEF(air)
 			cb.Invoke(air1, air2)
 		else
 			air1.transfer_ratio_to(air2, cur_op[3])
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 		if(MC_TICK_CHECK)
 			return
 
@@ -439,10 +339,7 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			return
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 /datum/controller/subsystem/air/proc/process_atmos_air_machinery(resumed = 0)
 	var/seconds = wait * 0.1
 	if (!resumed)
@@ -486,11 +383,9 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/process_turf_equalize(resumed = 0)
-<<<<<<< HEAD
-	if(process_turf_equalize_auxtools(resumed,MC_TICK_REMAINING_MS))
-=======
+
 	if(process_turf_equalize_auxtools(resumed,TICK_REMAINING_MS))
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 		pause()
 	/*
 	//cache for sanic speed
@@ -510,11 +405,9 @@ SUBSYSTEM_DEF(air)
 	*/
 
 /datum/controller/subsystem/air/proc/process_turfs(resumed = 0)
-<<<<<<< HEAD
-	if(process_turfs_auxtools(resumed,MC_TICK_REMAINING_MS))
-=======
+
 	if(process_turfs_auxtools(resumed,TICK_REMAINING_MS))
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 		pause()
 	/*
 	//cache for sanic speed
@@ -533,19 +426,7 @@ SUBSYSTEM_DEF(air)
 	*/
 
 /datum/controller/subsystem/air/proc/process_excited_groups(resumed = 0)
-<<<<<<< HEAD
-	if(process_excited_groups_auxtools(resumed,MC_TICK_REMAINING_MS))
-		pause()
 
-/datum/controller/subsystem/air/proc/finish_turf_processing(resumed = 0)
-	if(finish_turf_processing_auxtools(MC_TICK_REMAINING_MS))
-		pause()
-
-/datum/controller/subsystem/air/proc/post_process_turfs(resumed = 0)
-	if(post_process_turfs_auxtools(resumed,MC_TICK_REMAINING_MS))
-		pause()
-
-=======
 	if(process_excited_groups_auxtools(resumed,TICK_REMAINING_MS))
 		pause()
 
@@ -557,7 +438,6 @@ SUBSYSTEM_DEF(air)
 	if(post_process_turfs_auxtools(resumed,TICK_REMAINING_MS))
 		pause()
 
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 /datum/controller/subsystem/air/proc/finish_turf_processing_auxtools()
 /datum/controller/subsystem/air/proc/process_turfs_auxtools()
 /datum/controller/subsystem/air/proc/post_process_turfs_auxtools()
@@ -578,12 +458,11 @@ SUBSYSTEM_DEF(air)
 	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
 	var/times_fired = ++src.times_fired
 
-<<<<<<< HEAD
-=======
+
 	// Clear active turfs - faster than removing every single turf in the world
 	// one-by-one, and Initalize_Atmos only ever adds `src` back in.
 
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
 		if (T.blocks_air)
