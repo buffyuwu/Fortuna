@@ -205,8 +205,6 @@
 #define RULE_OF_THREE(a, b, x) ((a*x)/b)
 // )
 
-<<<<<<< HEAD
-=======
 /// Converts a probability/second chance to probability/delta_time chance
 /// For example, if you want an event to happen with a 10% per second chance, but your proc only runs every 5 seconds, do `if(prob(100*DT_PROB_RATE(0.1, 5)))`
 #define DT_PROB_RATE(prob_per_second, delta_time) (1 - (1 - (prob_per_second)) ** (delta_time))
@@ -215,7 +213,6 @@
 #define DT_PROB(prob_per_second_percent, delta_time) (prob(100*DT_PROB_RATE((prob_per_second_percent)/100, (delta_time))))
 // )
 /// Taxicab distance--gets you the **actual** time it takes to get from one turf to another due to how we calculate diagonal movement
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 #define MANHATTAN_DISTANCE(a, b) (abs(a.x - b.x) + abs(a.y - b.y))
 // )
 
