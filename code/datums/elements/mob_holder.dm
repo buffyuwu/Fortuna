@@ -201,8 +201,7 @@
 /obj/item/clothing/head/mob_holder/remove_air(amount)
 	var/atom/location = get_loc_for_air()
 	return location.remove_air(amount)
-<<<<<<< HEAD
-=======
+
 
 /obj/item/clothing/head/mob_holder/remove_air_ratio(ratio)
 	var/atom/location = get_loc_for_air()
@@ -221,4 +220,4 @@
 	if(escape_on_find)
 		finder.visible_message("[finder] accidentally releases the [held_mob]!")
 		release()
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
+
