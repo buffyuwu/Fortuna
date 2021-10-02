@@ -2684,11 +2684,10 @@
 /obj/item/storage/toolbox/mechanical/old,
 /turf/open/floor/wood,
 /area/awaymission/snowdin/outside)
-<<<<<<< HEAD
 "ge" = (
 /turf/closed/mineral/iron/ice,
 /area/awaymission/snowdin/cave/cavern)
-=======
+
 "gc" = (
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120";
@@ -2713,7 +2712,6 @@
 	initial_temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 "gg" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /turf/open/floor/plating/snowed/cavern,
@@ -3066,8 +3064,6 @@
 /obj/item/clothing/head/cone,
 /turf/open/floor/plating/snowed,
 /area/awaymission/snowdin/cave)
-<<<<<<< HEAD
-=======
 "gU" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/engine/cult{
@@ -3082,7 +3078,6 @@
 	initial_temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 "gW" = (
 /turf/closed/mineral/diamond/ice,
 /area/awaymission/snowdin/cave/cavern)
@@ -3395,8 +3390,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/garage)
-<<<<<<< HEAD
-=======
 "hF" = (
 /obj/structure/destructible/cult/pylon,
 /turf/open/floor/engine/cult{
@@ -3404,7 +3397,6 @@
 	initial_temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 "hG" = (
 /obj/structure/closet,
 /obj/item/clothing/suit/hooded/wintercoat/captain{
@@ -3663,8 +3655,6 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/awaymission/snowdin/cave)
-<<<<<<< HEAD
-=======
 "il" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/snowdin/dungeonmid,
@@ -3693,7 +3683,6 @@
 	initial_temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 "io" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
@@ -5582,8 +5571,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/outside)
-<<<<<<< HEAD
-=======
 "lT" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/snowdin/dungeonlite,
@@ -5592,7 +5579,6 @@
 	initial_temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 "lU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
@@ -7458,8 +7444,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/engineering)
-<<<<<<< HEAD
-=======
 "qg" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/engine/cult{
@@ -7467,7 +7451,6 @@
 	initial_temperature = 120
 	},
 /area/awaymission/snowdin/cave/cavern)
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 "qh" = (
 /obj/structure/fence,
 /obj/effect/turf_decal/stripes/line{
@@ -13105,8 +13088,6 @@
 /obj/item/toy/plush/nukeplushie,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/snowdin/cave)
-<<<<<<< HEAD
-=======
 "EE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -13147,7 +13128,6 @@
 	initial_temperature = 180
 	},
 /area/awaymission/snowdin/cave)
->>>>>>> 5204f5a6d9 (Merge pull request #13991 from Putnam3145/auxtools-atmos)
 "EH" = (
 /turf/open/floor/plasteel/dark,
 /area/awaymission/snowdin/cave)
