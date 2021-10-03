@@ -34,7 +34,7 @@
 	if(state && world.time >= combatmessagecooldown) //If combat mode didn't make a message
 		combatmessagecooldown = world.time + 10 SECONDS
 		nextcombatpopup = world.time + 10 SECONDS
-		playsound(src, 'sound/machines/chime.ogg', 10)
+		playsound(src, 'sound/f13effects/vats.ogg', 10)
 		//flick_overlay(src, "combat", 20)
 		visible_message("<span class='warning'>[src] gets ready for combat!</span>")
 	set_combat_indicator(state)
