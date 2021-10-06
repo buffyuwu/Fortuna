@@ -1,6 +1,5 @@
 /******************** Message Terminal ********************/
 /** Ported and condensed version of requests_console.dm using existing telecomms setup. */
-
 GLOBAL_LIST_EMPTY(NCR_req_terminal)
 
 GLOBAL_LIST_EMPTY(LEGION_req_terminal)
@@ -21,6 +20,7 @@ GLOBAL_LIST_EMPTY(allTerminals)
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
 	plane = ABOVE_WALL_PLANE
+	var/attempts = 5
 	var/terminalid = ""
 	var/beepsound = 'sound/effects/printer.ogg'
 	var/terminal = "terminal" //The list of all terminals on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one terminal
@@ -41,6 +41,8 @@ GLOBAL_LIST_EMPTY(allTerminals)
 		// 8 = view messages
 		// 9 = authentication before sending
 		// 10 = send announcement
+	var/hacking = FALSE
+	var/hacked
 	var/silent = FALSE // set to 1 for it not to beep all the time
 	var/hackState = FALSE
 	var/announcementConsole = FALSE // FALSE = This console cannot be used to send terminal announcements, TRUE = This console can send terminal announcements
@@ -50,6 +52,7 @@ GLOBAL_LIST_EMPTY(allTerminals)
 	var/priority = NORMAL_MESSAGE_PRIORITY //Priority of the message being sent. why is the default -1??
 	max_integrity = 300
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	var/list/jumbled = list("a51","543","2fgds","b4r0n","bu77y","df3","42","zul1","p00t5","d3f410","5","tr4ns","r1ght5","f0rtun4","11","b","19")
 
 /obj/machinery/msgterminal/power_change()
 	..()
@@ -88,8 +91,13 @@ GLOBAL_LIST_EMPTY(allTerminals)
 	dat += "<head><style>body {padding: 0; margin: 15px; background-color: #062113; color: #4aed92; line-height: 170%;} a, button, a:link, a:visited, a:active, .linkOn, .linkOff {color: #4aed92; text-decoration: none; background: #062113; border: none; padding: 1px 4px 1px 4px; margin: 0 2px 0 0; cursor:default;} a:hover {color: #062113; background: #4aed92; border: 1px solid #4aed92} a.white, a.white:link, a.white:visited, a.white:active {color: #4aed92; text-decoration: none; background: #4aed92; border: 1px solid #161616; padding: 1px 4px 1px 4px; margin: 0 2px 0 0; cursor:default;} a.white:hover {color: #062113; background: #4aed92;} .linkOn, a.linkOn:link, a.linkOn:visited, a.linkOn:active, a.linkOn:hover {color: #4aed92; background: #062113; border-color: #062113;} .linkOff, a.linkOff:link, a.linkOff:visited, a.linkOff:active, a.linkOff:hover{color: #4aed92; background: #062113; border-color: #062113;}</style></head><font face='courier'>"
 	dat += "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
 	dat += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b><br><br><br><br>"
+	if(hacking)
+		dat += "<b>ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL</b><br>"
+		dat += "<b>ENTER PASSWORD NOW</b><br>"
+		dat += "<b>ATTEMPTS REMAINING: [attempts]</b><br><br><br><br>"
 
-	
+	if(hacked == TRUE)
+		dat += "<center><b>Maintenance Mode</b><br>"
 	playsound(src, 'sound/f13machines/terminalkeytap01.ogg', 20, 1)
 	switch(screen)
 		if(1)	//choose your target
@@ -198,8 +206,31 @@ GLOBAL_LIST_EMPTY(allTerminals)
 				updateUsrDialog()
 				playsound(src, 'sound/f13machines/terminalmenucancel.ogg', 20, 1)
 			dat += "<a href='?src=[REF(src)];setScreen=0'>Continue</a><br>"
+		if(12)
+			if(!hacking)
+				hacking = TRUE
+				updateUsrDialog()
+			dat += "<A href='?src=[REF(src)];setHacking=1'>[pick(jumbled)]</a>"
+			dat += "<A href='?src=[REF(src)];setHacking=2'>[pick(jumbled)]</a>"
+			dat += "<A href='?src=[REF(src)];setHacking=3'>[pick(jumbled)]</a><br>"
+			dat += "<A href='?src=[REF(src)];setHacking=4'>[pick(jumbled)]</a>"
+			dat += "<A href='?src=[REF(src)];setHacking=5'>[pick(jumbled)]</a>"
+			dat += "<A href='?src=[REF(src)];setHacking=6'>[pick(jumbled)]</a><br>"
+			dat += "<A href='?src=[REF(src)];setHacking=7'>[pick(jumbled)]</a>"
+			dat += "<A href='?src=[REF(src)];setHacking=8'>[pick(jumbled)]</a>"
+
+			dat += "<A href='?src=[REF(src)];setHacking=9'>[pick(jumbled)]</a><br>"
+			dat += "<A href='?src=[REF(src)];setHacking=10'>[pick(jumbled)]</a>"
+			dat += "<A href='?src=[REF(src)];setHacking=[rand(1,10)]'>[pick(jumbled)]</a>"
+			dat += "<A href='?src=[REF(src)];setHacking=[rand(1,10)]'>[pick(jumbled)]</a><br>"
+			dat += "<A href='?src=[REF(src)];setHacking=[rand(1,10)]'>[pick(jumbled)]</a>"
+			dat += "<A href='?src=[REF(src)];setHacking=[rand(1,10)]'>[pick(jumbled)]</a>"
+			dat += "<A href='?src=[REF(src)];setHacking=1'>[pick(jumbled)]</a><br><br>"
+
+			dat += "<br><br><A href='?src=[REF(src)];setScreen=0'><< Back</A><br>"
 		else	//main menu
 			screen = 0
+			hacking = FALSE
 			if(newmessagepriority == NORMAL_MESSAGE_PRIORITY)
 				dat += "<div class='notice'>There are new messages</div><br>"
 			if(newmessagepriority == HIGH_MESSAGE_PRIORITY)
@@ -210,10 +241,14 @@ GLOBAL_LIST_EMPTY(allTerminals)
 			dat += "<a href='?src=[REF(src)];setScreen=8'>View Messages</a> <br><br>"
 
 			dat += "<a href='?src=[REF(src)];setScreen=1'>Send Message</a> <br>"
-			if(silent)
-				dat += "(( Sound effects <a href='?src=[REF(src)];setSilent=0'>OFF</a> ))"
+			if(!hacked)
+				dat += "<br><a href='?src=[REF(src)];setScreen=12'>Hack</a><br>"
 			else
-				dat += "(( Sound effects <a href='?src=[REF(src)];setSilent=1'>ON</a> ))"
+				dat += "<br><A href='?src=[REF(src)];setScreen=0'>Holotape Log</A><br>"
+			if(silent)
+				dat += "(( Sound effects <a href='?src=[REF(src)];setSilent'>OFF</a> ))"
+			else
+				dat += "(( Sound effects <a href='?src=[REF(src)];setSilent'>ON</a> ))"
 
 	var/datum/browser/popup = new(user, "req_console", "[terminal]")
 	popup.set_content(dat)
@@ -280,6 +315,21 @@ GLOBAL_LIST_EMPTY(allTerminals)
 			else
 				messages += "<div class='panel greenborder'><b>To:</b> <font size=1>[uppertext(dpt)]</font><br>[sending]</div>"
 
+	switch(text2num(href_list["setHacking"]))
+		if(1)		//send message
+			to_chat(usr,"You successfully hacked the [src].")
+			screen = 0
+			src.hacked = TRUE
+			playsound(src,'modular_fortuna/sound/hacking/ui_hacking_passgood.ogg',25)
+		else if(2||3||4||5||6||7||8||9||10)
+			playsound(src,'modular_fortuna/sound/hacking/ui_hacking_passbad.ogg',25)
+			if(attempts)
+				attempts--
+			if(attempts <= 1)
+				to_chat(usr,"You have been locked out of [src] after too many failed attempts.")
+				attempts = 3
+				hacking = FALSE
+				SStgui.force_close_window(usr,"req_console")
 
 	//Handle screen switching
 	switch(text2num(href_list["setScreen"]))
@@ -308,6 +358,8 @@ GLOBAL_LIST_EMPTY(allTerminals)
 			screen = 10
 		if(11)		//message admins
 			screen = 11
+		if(12)		//message admins
+			screen = 12
 		else		//main menu
 			dpt = ""
 			message = ""
@@ -315,10 +367,8 @@ GLOBAL_LIST_EMPTY(allTerminals)
 			screen = 0
 
 	//Handle silencing the console
-	if(href_list["setSilent"] == "1")
-		silent = TRUE
-	else
-		silent = FALSE
+	if(href_list["setSilent"])
+		silent = !silent
 
 	updateUsrDialog()
 	return
