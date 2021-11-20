@@ -160,7 +160,7 @@
 	reqs = list(
 		/datum/reagent/consumable/sodiumchloride = 15,
 		/datum/reagent/consumable/cooking_oil = 5,
-		/obj/item/reagent_containers/food/snacks/fishmeat/carp = 1,
+		/obj/item/reagent_containers/food/snacks/fishmeat = 1,
 	)
 	result = /obj/item/reagent_containers/food/snacks/tuna
 	subcategory = CAT_MISCFOOD
@@ -181,7 +181,7 @@
 	reqs = list(
 		/datum/reagent/consumable/flour = 5,
 		/obj/item/reagent_containers/food/snacks/grown/chili = 1,
-		/obj/item/reagent_containers/food/snacks/fishmeat/carp = 1
+		/obj/item/reagent_containers/food/snacks/fishmeat = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/cubancarp
 	subcategory = CAT_MISCFOOD
@@ -191,7 +191,7 @@
 	reqs = list(
 		/datum/reagent/consumable/flour = 5,
 		/obj/item/reagent_containers/food/snacks/bun = 1,
-		/obj/item/reagent_containers/food/snacks/fishmeat/carp = 1
+		/obj/item/reagent_containers/food/snacks/fishmeat = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/fishfingers
 	subcategory = CAT_MISCFOOD
@@ -200,7 +200,7 @@
 	name = "Fish and chips"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/fries = 1,
-		/obj/item/reagent_containers/food/snacks/fishmeat/carp = 1
+		/obj/item/reagent_containers/food/snacks/fishmeat = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/fishandchips
 	subcategory = CAT_MISCFOOD
@@ -210,7 +210,7 @@
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/grown/corn = 1,
 		/obj/item/reagent_containers/food/snacks/grown/peas =1,
-		/obj/item/reagent_containers/food/snacks/fishmeat/carp = 1
+		/obj/item/reagent_containers/food/snacks/fishmeat = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/fishfry
 	subcategory = CAT_MISCFOOD
@@ -225,11 +225,21 @@
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/lobsterdeluxe
-	name = "Fish fry"
+	name = "Lobster Fish fry"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/fishmeat/lobster/cooked = 1,
 		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon =1,
 		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/fishing/lobster_deluxe
+	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/sushie_basic
+	name = "Funa Hosomaki"
+	reqs = list(
+		/obj/item/reagent_containers/food/condiment/rice = 1,
+		/obj/item/reagent_containers/food/snacks/fishmeat = 1,
+		/obj/item/reagent_containers/food/snacks/sea_weed = 1,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushie_basic
 	subcategory = CAT_MISCFOOD

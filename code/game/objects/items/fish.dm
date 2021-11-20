@@ -8,7 +8,7 @@
 	//the max primary meat it drops
 	var/max_meat = 3
 	//the secondary drop upon butcher
-	var/secondary_drop
+	var/secondary_drop = /obj/item/reagent_containers/food/snacks/sea_weed
 	//secondary drop chance, default 25 (twenty-five) percent
 	var/secondary_chance = 25
 	//the max secondary drops
@@ -51,20 +51,18 @@
 	desc = "carpe diem, meaning seize the car-- day. It means seize the day."
 	icon_state = "carp"
 	meat_type = /obj/item/reagent_containers/food/snacks/fishmeat/carp
-	secondary_drop = /obj/item/fishyegg/carp
 
 /obj/item/fishy/salmon
 	name = "salmon"
 	desc = "salmon day, spending all day going upstream just to get screwed and die."
 	icon_state = "salmon"
 	meat_type = /obj/item/reagent_containers/food/snacks/fishmeat/salmon
-	secondary_drop = /obj/item/fishyegg/salmon
 
 /obj/item/fishy/eel
 	name = "electric eel"
 	desc = "When you're down by the sea and an eel bites your knee, that's a moray."
 	icon_state = "electric_eel"
-	secondary_drop = /obj/item/fishyegg/eel
+	meat_type = /obj/item/reagent_containers/food/snacks/fishmeat/eel
 	var/delay_shock = 0
 
 /obj/item/fishy/eel/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -81,51 +79,18 @@
 	desc = "Lobsters have a hard time learning the alphabet, being stuck at C."
 	icon_state = "lobster"
 	meat_type = /obj/item/reagent_containers/food/snacks/fishmeat/lobster
-	secondary_drop = /obj/item/fishyegg/lobster
 
 /obj/item/fishy/shrimp
 	name = "shrimp"
 	desc = "Whenever shrimps fight at bars, they get absolutely battered."
 	icon_state = "shrimp"
 	meat_type = /obj/item/reagent_containers/food/snacks/fishmeat/shrimp
-	secondary_drop = /obj/item/fishyegg/shrimp
 
 /obj/item/fishy/clownfish
 	name = "clownfish"
 	desc = "Keep friends close, anenomes closer."
 	icon_state = "clownfish"
-	secondary_drop = /obj/item/fishyegg/clownfish
 
 /obj/item/fishy/clownfish/Initialize()
 	. = ..()
 	AddComponent(/datum/component/slippery, 80) //clownfish really do be soap though
-
-/obj/item/fishyegg
-	name = "parent fish egg"
-	desc = "debug, report to coders (or jake) if you see this."
-	icon = 'icons/obj/fish/fish_items.dmi'
-	grind_results = list(/datum/reagent/nutracid = 1)
-
-/obj/item/fishyegg/carp
-	name = "carp fish egg"
-	icon_state = "carp_eggs"
-
-/obj/item/fishyegg/salmon
-	name = "salmon fish egg"
-	icon_state = "salmon_eggs"
-
-/obj/item/fishyegg/eel
-	name = "eel fish egg"
-	icon_state = "electric_eel_eggs"
-
-/obj/item/fishyegg/lobster
-	name = "lobster fish egg"
-	icon_state = "catfish_eggs"
-
-/obj/item/fishyegg/shrimp
-	name = "shrimp fish egg"
-	icon_state = "shrimp_eggs"
-
-/obj/item/fishyegg/clownfish
-	name = "clown fish egg"
-	icon_state = "clown_eggs"

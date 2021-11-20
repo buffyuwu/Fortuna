@@ -49,6 +49,17 @@
 	icon = 'icons/obj/fish/seafood.dmi'
 	icon_state = "smokedsalmon"
 
+/obj/item/reagent_containers/food/snacks/fishmeat/eel
+	name = "eel fillet"
+	desc = "A tender eel fillet."
+	cooked_type = /obj/item/reagent_containers/food/snacks/fishmeat/eel/cooked
+
+/obj/item/reagent_containers/food/snacks/fishmeat/eel/cooked
+	name = "cooked eel fillet"
+	desc = "A gorgeously cooked eel fillet that has an electric sear."
+	icon = 'icons/obj/fish/seafood.dmi'
+	icon_state = "smokedsalmon"
+
 /obj/item/reagent_containers/food/snacks/fishmeat/lobster
 	name = "lobster meat"
 	desc = "Raw lobster meat that has been prepared."
