@@ -73,7 +73,8 @@
 
 /obj/item/stack/f13Cash/caps
 	merge_type = /obj/item/stack/f13Cash/caps
-
+	pickup_sound = list('sound/f13effects/pickup/bottlecaps_1.ogg','sound/f13effects/pickup/bottlecaps_2.ogg','sound/f13effects/pickup/bottlecaps_3.ogg')
+	drop_sound = list('sound/f13effects/pickup/bottlecaps_1.ogg','sound/f13effects/pickup/bottlecaps_2.ogg','sound/f13effects/pickup/bottlecaps_3.ogg')
 /obj/item/stack/f13Cash/caps/fivezerozero
 	amount = 500
 	merge_type = /obj/item/stack/f13Cash/caps

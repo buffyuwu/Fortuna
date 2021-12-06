@@ -150,6 +150,7 @@ ATTACHMENTS
 	force = 5
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
 	attack_verb = list("struck", "hit", "bashed")
+	pickup_sound = list()	//null out our pickup sound since guns have an equipsound already
 	var/ranged_attack_speed = CLICK_CD_RANGE
 	var/fire_sound = "gunshot"
 	var/recoil = 0						//boom boom shake the room

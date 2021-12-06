@@ -218,6 +218,7 @@
 						"<span class='danger'>You throw [thrown_thing][power_throw ? " really hard!" : "."]</span>")
 		log_message("has thrown [thrown_thing] [power_throw ? "really hard" : ""]", LOG_ATTACK)
 		do_attack_animation(target, no_effect = 1)
+		I.drop_sound = null
 		playsound(loc, 'sound/weapons/punchmiss.ogg', 50, 1, -1)
 		newtonian_move(get_dir(target, src))
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed + power_throw, src, null, null, null, move_force, random_turn)

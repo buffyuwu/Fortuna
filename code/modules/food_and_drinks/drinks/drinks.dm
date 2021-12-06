@@ -15,6 +15,10 @@
 	volume = 50
 	resistance_flags = NONE
 	var/isGlass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
+	//fortuna edit start
+	pickup_sound = list('sound/f13effects/pickup/bottle_pickup_1.ogg','sound/f13effects/pickup/bottle_pickup_2.ogg')
+	drop_sound = list('sound/f13effects/pickup/bottle_drop_1.ogg','sound/f13effects/pickup/bottle_drop_2.ogg')
+	//fortuna edit end
 
 /obj/item/reagent_containers/food/drinks/on_reagent_change(changetype)
 	if (gulp_size < 5)

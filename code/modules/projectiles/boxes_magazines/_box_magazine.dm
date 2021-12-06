@@ -23,6 +23,8 @@
 	var/start_empty = 0
 	var/list/bullet_cost
 	var/list/base_cost// override this one as well if you override bullet_cost
+	pickup_sound = list('sound/f13effects/pickup/ammo_pickup_1.ogg','sound/f13effects/pickup/ammo_pickup_2.ogg')
+	drop_sound = list('sound/f13effects/pickup/ammo_drop_1.ogg')
 
 /obj/item/ammo_box/Initialize()
 	. = ..()

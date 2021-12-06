@@ -160,6 +160,12 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 	var/canMouseDown = FALSE
 
+//fortuna edit start
+	// pickup sound - this is the default
+	var/pickup_sound = list('sound/f13effects/pickup/generic_pickup_1.ogg', 'sound/f13effects/pickup/generic_pickup_2.ogg','sound/f13effects/pickup/generic_pickup_3.ogg')
+	// drop sound - this is the default
+	var/drop_sound = list('sound/f13effects/pickup/generic_drop_1.ogg','sound/f13effects/pickup/generic_drop_2.ogg')
+//fortuna edit end
 
 /obj/item/Initialize()
 
@@ -448,6 +454,8 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	if(SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user) & COMPONENT_DROPPED_RELOCATION)
 		. = ITEM_RELOCATED_BY_DROPPED
 	user?.update_equipment_speed_mods()
+	if(drop_sound)
+		playsound(src, drop_sound, 30)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -495,6 +503,10 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 				A.Grant(user)
 	item_flags |= IN_INVENTORY
 	user.update_equipment_speed_mods()
+	//fortuna edit start
+	if(pickup_sound)
+		playsound(src, pickup_sound, 30)
+	//fortuna edit end
 
 //Overlays for the worn overlay so you can overlay while you overlay
 //eg: ammo counters, primed grenade flashing, etc.
